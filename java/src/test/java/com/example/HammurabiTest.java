@@ -1,9 +1,9 @@
-package hammurabi;
-
-import static org.junit.Assert.*;
-
+package com.example;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.*;
+
+
 
 public class HammurabiTest {
     
@@ -27,8 +27,7 @@ public class HammurabiTest {
                 number_of_plagues += 1;
             }
         }
-        int percentPlagues = number_of_plagues / 100;
-        assertTrue("Number of plagues is about " + percentPlagues + ", not about 15%.",
+        assertTrue("Number of plagues is about " + number_of_plagues + ", not about 15%.",
                    about(1500, number_of_plagues));
     }
 
@@ -69,7 +68,7 @@ public class HammurabiTest {
     public final void testHarvest() {
         int[] yield = new int[7];
         for (int i = 0; i < 1000; i++) {
-            int harvest = ham.harvest(1);
+            int harvest = ham.harvest(1, 2); // update if your method signature requires two arguments
             assertTrue("Illegal harvest per acre: " + harvest, harvest > 0 && harvest <= 6);
             yield[harvest] += 1;
         }
@@ -87,8 +86,7 @@ public class HammurabiTest {
                 infestations += 1;
             }
         }
-        int percentInfestations = infestations / 100;
-        assertTrue("Number of rat infestations is about " + percentInfestations + 
+        assertTrue("Number of rat infestations is about " + infestations + 
                    ", not about 40%.", about(400, infestations));
     }
 
@@ -99,11 +97,12 @@ public class HammurabiTest {
         for (int i = 0; i < 10000; i++) {
             percent = ham.grainEatenByRats(100);
             if (percent == 0) continue;
-            counts[percent] += 1;
-            assertTrue("Rats ate " + percent + "% of your grain, not 10% to 30%.",
-                       percent >= 10 && percent <= 30);
+            int percentEaten = percent; // percent is already the percentage eaten
+            counts[percentEaten] += 1;
+            assertTrue("Rats ate " + percentEaten + "% of your grain, not 10% to 30%.",
+                       percentEaten >= 10 && percentEaten <= 30);
         }
-        for (int j = 11; j < 30; j++) {
+        for (int j = 10; j <= 30; j++) {
             assertTrue("Rats never ate " + j + "% of your grain.", counts[j] > 0);
         }
     }
@@ -122,4 +121,3 @@ public class HammurabiTest {
     }
 
 }
-
